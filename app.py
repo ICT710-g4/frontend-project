@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import json
 import requests
 import time
@@ -9,7 +9,7 @@ from contextlib import closing
 #CONSTANTS
 API_URL = 'https://taist-2020-heroku.herokuapp.com/api/sensor_data'
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder = 'frontend_interface')
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 @app.route('/')
