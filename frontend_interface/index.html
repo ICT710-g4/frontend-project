@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html leng ="en">
+<head>
+	<meta charset = "UTF-8">
+	<meta name = "viewport" content="width=device-width, initail-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content ="ie=edge">
+	<title>Movement detection</title>
+	<link rel="stylesheet" href = "css/main.css">
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+</head>
+<body>
+	<h1>Movement detection</h1>
+	<section id = "plus">
+		<nav>
+			<a href = "#" class ="active" style="font-size:30px" onclick="myDashboard()"><i class="fa fa-plus-square" aria-hidden="true" style="font-size:40px"></i> Add</a>
+		</nav>
+	</section>
+	
+	<div class = "container" id = 1></div>
+	<div class = "container" id = 2></div>
+	<div class = "container" id = 3></div>
+	<div class = "container" id = 4></div>
+	<div class = "container" id = 5></div>
+	<div class = "container" id = 6></div>
+	<div class = "container" id = 7></div>
+	<div class = "container" id = 8></div>
+	<div class = "container" id = 9></div>
+	<div class = "container" id = 10></div>
+	<div class = "container" id = 11></div>
+	<div class = "container" id = 12></div>
+	<div class = "container" id = 13></div>
+	<div class = "container" id = 14></div>
+	<div class = "container" id = 15></div>
+	<div class = "container" id = 16></div>
+	<div class = "container" id = 17></div>
+	<div class = "container" id = 18></div>
+	<div class = "container" id = 19></div>
+	<div class = "container" id = 20></div>
+	<div class = "container" id = 21></div>
+	
+<!--test: <input type="number" id="humanMovement" value= 0>-->
+<button onclick="save()">Save</button>
+<button onclick = "getdata()"> get</button>
+<p id="demo"></p>
+
+<script>
+var z = 1;
+var i =0;
+var j =0;
+var id = 0;
+var last = 1;
+var address =[0];
+const form = document.querySelector('form');
+const ul = document.querySelector('ul');
+//var storage =[];
+var storage = sessionStorage.getItem('device_item') ? JSON.parse(sessionStorage.getItem('device_item')) : [];
+var remove_condiction=0;
+window.onbeforeunload = function() {
+	 var request = new XMLHttpRequest();
+	request.open("GET","data.txt",true);
+	request.onreadystatechange=function (){
+	if ((request.readyState === 4) && (request.status===200)){
+		storage = JSON.param(request.responseText);
+		console.log(request);
+	}
+	}
+	sessionStorage.setItem('device_item', JSON.stringify(storage));
+	var data = JSON.parse(sessionStorage.getItem("device_item"));
+	document.getElementById("demo").innerHTML = storage;
+	request.send();
+}
+
+window.onload = function(){
+	var test = 0;
+	if (test == 0){
+	var request = new XMLHttpRequest();
+	request.open("GET","data.txt",true);
+	request.onreadystatechange=function (){
+	if ((request.readyState === 4) && (request.status===200)){
+		console.log(request);
+		storage = JSON.parse(request.responseText);
+	}
+	}
+	test = 1;
+	
+	request.send();
+	
+	}
+	getdata();
+	document.getElementById("demo").innerHTML = "Human movement"+storage;
+	if(test ==1){
+	var p;
+	for (p = 1; p < storage.length; p++) {
+		z = storage[p];
+		var k = z*100;
+		var h = k*10;
+		var c = h*10;
+		if (storage[p]>50000000000000000000){
+			remove_condiction =1;
+			address[p] = p;
+			continue;
+		}
+		last = storage.length;
+		document.getElementById(z).innerHTML = "<section id ="+c+"><a href = \"#\" class =\"active\" onclick=\"removeDashboard("+c+")\"><i class=\"fa fa-times\" aria-hidden=\"true\"></i></a><p id ="+k+"> </p><img src=\"image/DISCO_L475VG_IOT01A.jpg\" width=\"200\" height=\"200\"><p id="+h+">Device Disconnect</p></section><br>";
+		document.getElementById(k).innerHTML = "Device Number" + z
+		document.getElementById(h).style.fontSize = "20px"; 
+		document.getElementById(h).style.color = "red";
+
+	}
+	}
+}	
+
+var counter  = (function (){
+	var count = 0;
+	return function() {return count +=1}
+})();
+
+/*function myFunction(){
+	
+	var x = document.getElementById("humanMovement").value;
+	
+	if (x==1){
+		document.getElementById("demo").innerHTML = "Human movement"+z;	
+	}
+	else if (x == 0 ){
+		document.getElementById("demo").innerHTML ="Device disconnect"+data;
+	}
+	else {
+		document.getElementById("demo").innerHTML ="Human not movement" +storage;
+	}
+}*/
+function myDashboard (){
+	var y = counter();
+	if (y > 0){
+		var k = z*100;
+		var h = k*10;
+		var c = h*10;		
+		if (remove_condiction == 0){
+			j=0;
+			i=0;
+			z = last;
+			k = z*100;
+			h = k*10;
+			c = h*10;
+			storage [z]=z;
+			document.getElementById(z).innerHTML = "<section id ="+c+"><a href = \"#\" class =\"active\" onclick=\"removeDashboard("+c+")\"><i class=\"fa fa-times\" aria-hidden=\"true\"></i></a><p id ="+k+"> </p><img src=\"image/DISCO_L475VG_IOT01A.jpg\" width=\"200\" height=\"200\"><p id="+h+">Device Disconnect</p></section>";
+			document.getElementById(k).innerHTML = "Device Number" + z
+			document.getElementById(h).style.fontSize = "20px"; 
+			document.getElementById(h).style.color = "red";
+			z ++;
+			last = z;
+		}
+		if (remove_condiction == 1){
+			j++;
+			address.sort();
+			z = address[j];
+			k = z*100;
+			h = k*10;
+			c = h*10;
+			storage [z]=z;
+			document.getElementById(z).innerHTML = "<section id ="+c+"><a href = \"#\" class =\"active\" onclick=\"removeDashboard("+c+")\"><i class=\"fa fa-times\" aria-hidden=\"true\"></i></a><p id ="+k+"> </p><img src=\"image/DISCO_L475VG_IOT01A.jpg\" width=\"200\" height=\"200\"><p id="+h+">Device Disconnect</p></section>";
+			document.getElementById(k).innerHTML = "Device Number" + z
+			document.getElementById(h).style.fontSize = "20px"; 
+			document.getElementById(h).style.color = "red";
+			if (i==j){
+				remove_condiction = 0;
+			}
+		}
+	}	
+}
+function removeDashboard(id){
+	i++;
+	var x = document.getElementById(id);
+    x.remove(x.selectedIndex);	
+	remove_condiction =1;
+	storage [id/10000]=5000000000000000000000;
+	if (i >0 ){
+		address[i] = id/10000;
+	}
+}
+function save(){
+	var jsonSring = JSON.stringify(storage);
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", "data.php");
+	xhr.setRequestHeader('Content-Type',"application/json");
+	xhr.send(jsonSring);
+}
+function getdata(){
+	var request = new XMLHttpRequest();
+	request.open("GET","data.txt",true);
+	request.onreadystatechange=function (){
+	if ((request.readyState === 4) && (request.status===200)){
+		storage = JSON.parse(request.responseText);
+		console.log(request);
+	}
+	}
+	document.getElementById("demo").innerHTML = storage;
+	request.send();
+}
+</script>
+</body>
+</html>
