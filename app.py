@@ -20,7 +20,6 @@ def index():
 def event_data():
     def post_data():
         json_dict =[]
-        csv_data = requests.get(API_URL)
         fieldnames = ("device_id","roll","pitch","yaw","acc_x","acc_y","acc_z","label","type","timestamp")
         with closing(requests.get(API_URL, stream=True)) as r:
             reader = csv.DictReader(codecs.iterdecode(r.iter_lines(), 'utf-8'), fieldnames)
