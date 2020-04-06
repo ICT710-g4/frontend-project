@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Motion Detection</title>
+</head>
+<body>
+<p id="canvas"></p>
+</div>
+<!--suppress JSUnresolvedLibraryURL -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<!--suppress JSUnresolvedLibraryURL -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        const context = document.getElementById('canvas');
+
+        const source = new EventSource("/event");
+
+        source.onmessage = function (event) {
+            const data = JSON.parse(event.data);
+			out_data = JSON.stringify(data, null, '\t');
+            context.innerHTML = out_data;
+        }
+    });
+</script>
+</body>
+</html>
