@@ -28,7 +28,7 @@
     <div class="content">
         <h1><font face="Helvetica">Motion Detection Monitor</h1>
         <hr>
-        <p>The edge-device status has shown below:</p>
+        <p>The edge-device status is shown below:</p>
         <table align="center" width="400">
             <tr>
                 <th>Device id</th>
@@ -88,13 +88,13 @@
 <!--suppress JSUnresolvedLibraryURL -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
+	var temp_list = ["1","2","3","4","5","6","7","8","9"];
     $(document).ready(function () {
 
         const context1 = document.getElementById('canvas1');
 		const context2 = document.getElementById('canvas2');
 
         const source = new EventSource("/event");
-		var temp_list = ["1","2","3","4","5","6","7","8","9"];
 		
         source.onmessage = function (event) {
 			temp_list = ["1","2","3","4","5","6","7","8","9"];
@@ -117,7 +117,7 @@
 		}
 		document.getElementById(current_context).innerHTML = temp_label;
 		document.getElementById(current_timestamp).innerHTML = item.timestamp;
-		for( var i = 0; i < temp_list.length; i++){ if ( temp_list[i] == device_id) { temp_list.splice(i, 1); }}	
+		for( var i = 0; i < temp_list.length; i++){ if ( temp_list[i] == item.device_id) { temp_list.splice(i, 1); }}	
 	}
 	
 	function leftoverHandler(item){
