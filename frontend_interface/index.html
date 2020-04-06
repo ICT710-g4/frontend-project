@@ -220,7 +220,18 @@ function getdata(){
 	//document.getElementById("demo").innerHTML = storage;
 	request.send();
 }
+function loadDoc() {
+	const Http = new XMLHttpRequest();
+	const url='proxy.php?a=ok';
+	Http.open("GET", url);
+	Http.send();
 
+	Http.onreadystatechange = (e) => {
+	  var X=JSON.parse(Http.responseText);
+	  var Y= X.rsults.length;
+	  console.log(X.results);
+	}
+}
 /*function requestData(){
 	var requetdata = new XMLHttpRequest();
 	requestdata.open("GET",ulr);
