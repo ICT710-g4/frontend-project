@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid gray;
+        }
+        
+        body {
+            background: #999;
+        }
+        
+        .content {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="content">
+        <h1><font face="Helvetica">Motion Detection Monitor</h1>
+        <hr>
+        <p>The edge-device status is shown below:</p>
+        <table align="center" width="400">
+            <tr>
+                <th>Device id</th>
+                <th>Status</th>
+                <th>Timestamp</th>
+            </tr>
+            <tr>
+                <td align="center">1</td>
+                <td align="center" id="context1"><font color="red"> Disconnected</font></td>
+                <td align="center" id="timestamp1">Undefined</td>
+            </tr>
+            <tr>
+                <td align="center">2</td>
+                <td align="center" id="context2"><font color="red"> Disconnected</font></td>
+                <td align="center" id="timestamp2">Undefined</td>
+            </tr>
+            <tr>
+                <td align="center">3</td>
+                <td align="center" id="context3"><font color="red"> Disconnected</font></td>
+                <td align="center" id="timestamp3">Undefined</td>
+            </tr>
+            <tr>
+                <td align="center">4</td>
+                <td align="center" id="context4"><font color="red"> Disconnected</font></td>
+                <td align="center" id="timestamp4">Undefined</td>
+            </tr>
+            <tr>
+                <td align="center">5</td>
+                <td align="center" id="context5"><font color="red"> Disconnected</font></td>
+                <td align="center" id="timestamp5">Undefined</td>
+            </tr>
+            <tr>
+                <td align="center">6</td>
+                <td align="center" id="context6"><font color="red"> Disconnected</font></td>
+                <td align="center" id="timestamp6">Undefined</td>
+            </tr>
+            <tr>
+                <td align="center">7</td>
+                <td align="center" id="context7"><font color="red"> Disconnected</font></td>
+                <td align="center" id="timestamp7">Undefined</td>
+            </tr>
+            <tr>
+                <td align="center">8</td>
+                <td align="center" id="context8"><font color="red"> Disconnected</font></td>
+                <td align="center" id="timestamp8">Undefined</td>
+            </tr>
+            <tr>
+                <td align="center">9</td>
+                <td align="center" id="context9"><font color="red"> Disconnected</font></td>
+                <td align="center" id="timestamp9">Undefined</td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<!--suppress JSUnresolvedLibraryURL -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+	var temp_list = ["1","2","3","4","5","6","7","8","9"];
+    $(document).ready(function () {
+
+        const context1 = document.getElementById('canvas1');
+		const context2 = document.getElementById('canvas2');
+
+        const source = new EventSource("/event");
+		
+        source.onmessage = function (event) {
+			temp_list = ["1","2","3","4","5","6","7","8","9"];
+            const data = JSON.parse(event.data);
+			out_data = JSON.stringify(data, null, '\t');
+            data.forEach(outputHandler);
+			temp_list.forEach(leftoverHandler);
+        }
+    });
+	
+	function outputHandler(item){
+		current_context = "context".concat(item.device_id);
+		current_timestamp = "timestamp".concat(item.device_id);
+		if(item.label == "0"){
+		temp_label = "Moving";
+		} else if (item.label == "1"){
+		temp_label = "Not Moving";
+		} else if (item.label == "2"){
+		temp.label = "Disconnected";
+		}
+		document.getElementById(current_context).innerHTML = temp_label;
+		document.getElementById(current_timestamp).innerHTML = item.timestamp;
+		for( var i = 0; i < temp_list.length; i++){ if ( temp_list[i] == item.device_id) { temp_list.splice(i, 1); }}	
+	}
+	
+	function leftoverHandler(item){
+		current_context = "context".concat(item);
+		current_timestamp = "timestamp".concat(item);
+		document.getElementById(current_context).innerHTML = "Disconnected".fontcolor("red");
+		document.getElementById(current_timestamp).innerHTML = "Undefined";
+	}
+</script>
+</html>
