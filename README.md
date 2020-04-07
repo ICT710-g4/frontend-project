@@ -1,23 +1,19 @@
 
 # Front-end project
 
-This project is one of the parts in the Motion detection project in **ICT710: Software Design for Embedded Systems**, which is a responsibility by **Narusorn Sirivon(Crizyntch)** and **Menghorng Bun (Menghorng96)**.
+This repository hosts the frontend components for Motion Detection project in **ICT710: Software Design for Embedded Systems**, which is developed by **Narusorn Srivaro(Crizyntch)** and **Menghorng Bun (Menghorng96)**.
 
 ## System Description
-
-`asds` < use for code
-**asds** use for bold
 
 
 ### Overview
 
-brief about system overview
+This component receive query data from the database API through GET method, and display the movement status of each edge devices in a simple HTML page. The frontend HTML page is updated in real time automatically via SSE and Javascript. This repository is Heroku deployable with Procfile and requirements.txt included.
 
 ### Heroku
 
-- URL: `website URL`
-- 
-explain Heroku work in our system 
+This project is currently hosted on Heroku cloud server which can be accessed via this link
+- URL: https://taist2020-motion-detection.herokuapp.com/
 
 ### Flask
 
