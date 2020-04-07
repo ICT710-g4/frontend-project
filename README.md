@@ -17,11 +17,11 @@ This project is currently hosted on Heroku cloud server which can be accessed vi
 
 ### Flask
 
-why we use flask and what flask do in our system
+The frontend use Flask as a lightweight python framework. It handles the routing and SSE pushing of the system.
 
 
 ### Web Interface
 
-why we use what we use to implement an interface
+The interface is implemented using HTML and JavaScripts. HTML is used for general formatting of the page, while JavaScripts handle real time SSE and display the informations.
 
 
