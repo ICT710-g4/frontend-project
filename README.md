@@ -41,5 +41,5 @@ for heroku deployment, please read here
 `$ cd frontent-project`\
 `$ pip install -r requirements.txt`\
 `$ export FLASK_APP=app.py`\
-`$ flask run`\
+`$ flask run`
 - running port can be configured in app.py
