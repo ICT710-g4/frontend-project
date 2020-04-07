@@ -8,7 +8,7 @@ This repository hosts the frontend components for Motion Detection project in **
 
 ### Overview
 
-This component receive query data from the database API through GET method, and display the movement status of each edge devices in a simple HTML page. The frontend HTML page is updated in real time automatically via SSE and Javascript. This repository is Heroku deployable with Procfile and requirements.txt included.
+This component receive query data from PostgreSQL database API via GET method, and display the movement status of each edge devices in a simple HTML page. The frontend HTML page is updated in real time via SSE and Javascript. This repository is Heroku deployable with Procfile and requirements.txt included.
 
 ### Heroku
 
