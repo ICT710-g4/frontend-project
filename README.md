@@ -32,9 +32,9 @@ The interface is implemented using HTML and JavaScripts. HTML is used for genera
 ## Installation
 
 compile `git clone https://github.com/ICT710-g4/frontent-project.git`
-no installation is required for hosting on local device
+no further installation is required for hosting on local device
 for heroku deployment, please read here
-https://devcenter.heroku.com/categories/deployment
+- https://devcenter.heroku.com/categories/deployment
 
 ## Getting Started
 
@@ -42,3 +42,4 @@ https://devcenter.heroku.com/categories/deployment
 `$ pip install -r requirements.txt`
 `$ export FLASK_APP=app.py`
 `$ flask run`
+running port can be configured in app.py
